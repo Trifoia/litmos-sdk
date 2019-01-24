@@ -1,0 +1,12 @@
+version: 0.2  # Always use version 2
+phases:
+  install:
+    commands:
+      - make install  # Install dependencies and set up submodules
+  build:
+    commands:
+      - make lint # Ensure proper linting
+      - make test # Test project
+artifacts:
+  files:
+    - index.js
