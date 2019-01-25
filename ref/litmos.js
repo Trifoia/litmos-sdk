@@ -319,7 +319,7 @@ class Litmos {
     }
 
     const xmlBody = await this._jsToXml({ModuleResult: orderedObj});
-    console.log(xmlBody);
+
     const opts = {
       endpoint: `/results/modules/${moduleId}`,
       method: 'PUT',

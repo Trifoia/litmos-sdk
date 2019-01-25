@@ -8,6 +8,10 @@ install:
 lint:
 	node ./node_modules/.bin/eslint . --fix
 
+# Lints without fixing. Used in validation testing
+lint-nofix:
+	node ./node_modules/.bin/eslint .
+
 # Run tests
 test:
 	npm test

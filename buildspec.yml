@@ -5,7 +5,7 @@ phases:
       - make install  # Install dependencies and set up submodules
   build:
     commands:
-      - make lint # Ensure proper linting
+      - make lint-nofix # Ensure proper linting
       - make test # Test project
 artifacts:
   files:
