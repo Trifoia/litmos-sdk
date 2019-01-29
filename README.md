@@ -20,9 +20,6 @@ The following principles should be followed when developing this sdk:
   - The Litmos API only consistently works with XML, JSON support is spotty at best
 - Should be fully documented with JSDocs
 - Should be fully unit tested
-  - At least 80% statement coverage, with all primary routes covered
-  - Near 100% function coverage, with each function touched at least once
-    - Note that some functions exist so that they can be proxied to prevent https requests during testing - these functions will never be tested
 
 # Notes on Litmos API Oddities
 The Litmos API is not the most consistent API in the world. Documentation is spotty and implementation is inconsistent. Here are some pointers that should help when navigating the API

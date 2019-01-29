@@ -1,0 +1,47 @@
+{
+  "opts": {
+    "position": 0,
+    "method": "GET",
+    "path": [
+      "Users",
+      "User"
+    ],
+    "uri": "https://api.litmos.com/v1.svc/users?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+    "headers": {
+      "Content-Type": "application/xml"
+    }
+  },
+  "err": null,
+  "res": {
+    "statusCode": 200,
+    "body": "<Users xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><User><Id>Gc8pwY3BubI1</Id><UserName>test0@email.com</UserName><FirstName>Alieta</FirstName><LastName>Train</LastName><Active>false</Active><Email>test0@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User><User><Id>AbRAYHs7WDN9XAa61ofsZQ2</Id><UserName>test1@email.com</UserName><FirstName>Daniel</FirstName><LastName>Blasher</LastName><Active>true</Active><Email>test1@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User><User><Id>rh_dmKGsftJqEF4j04LVgQ2</Id><UserName>test2@email.com</UserName><FirstName>Elise</FirstName><LastName>Crum</LastName><Active>true</Active><Email>test2@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User><User><Id>bdphVfvQAcSnazBwFTtq8g2</Id><UserName>test3@email.com</UserName><FirstName>Elise</FirstName><LastName>Crum</LastName><Active>true</Active><Email>test3@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>7vRPmxsBfyLvE5pnagW4bw2</Id><UserName>test4@email.com</UserName><FirstName>Frank</FirstName><LastName>Jimenez</LastName><Active>true</Active><Email>test4@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>Pt0m-NBHLiOK98dfwHxtOQ2</Id><UserName>test5@email.com</UserName><FirstName>frnkjmz</FirstName><LastName>frnkjmz</LastName><Active>true</Active><Email>test5@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>4ArKZ58iMQkb8dlKxuLKJg2</Id><UserName>test6@email.com</UserName><FirstName>Ivy</FirstName><LastName>Gibson</LastName><Active>true</Active><Email>test6@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>Ci9uLRDvhE2hLlpzOxARFQ2</Id><UserName>test7@email.com</UserName><FirstName>Ivy</FirstName><LastName>Gibson</LastName><Active>true</Active><Email>test7@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>BNhuB89otu-bkOwOZPwQow2</Id><UserName>test8@email.com</UserName><FirstName>Ivy</FirstName><LastName>Gibson</LastName><Active>true</Active><Email>test8@email.com</Email><AccessLevel>Administrator</AccessLevel><Brand>Default</Brand></User><User><Id>LePcvst-OlRc4zjvEljB6A2</Id><UserName>test9@email.com</UserName><FirstName>Josh</FirstName><LastName>Evans</LastName><Active>true</Active><Email>test10@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User><User><Id>pSMaXLa5SkFh85Qqs3dyUg2</Id><UserName>test11@email.com</UserName><FirstName>Joshua</FirstName><LastName>Evans</LastName><Active>true</Active><Email>test12@email.com</Email><AccessLevel>Team_Leader</AccessLevel><Brand>Default</Brand></User><User><Id>YZksSjgr7oCHiiJm3V2r6A2</Id><UserName>test13@email.com</UserName><FirstName>Juan</FirstName><LastName>Alvarez</LastName><Active>true</Active><Email>test13@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>lua8HgWd-XNq5JSxqMMvnw2</Id><UserName>test14@email.com</UserName><FirstName>Kathleen</FirstName><LastName>W</LastName><Active>true</Active><Email>test14@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User><User><Id>y4e8DJVMyvkAGfXaFcgipQ2</Id><UserName>test15@email.com</UserName><FirstName>LauraS</FirstName><LastName>LauraS</LastName><Active>true</Active><Email>test15@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>vPBu-y8aHW6hfrNRXx7YsA2</Id><UserName>test16@email.com</UserName><FirstName>Marla</FirstName><LastName>Wirrick</LastName><Active>true</Active><Email>test16@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User><User><Id>b76ehxEnUHeCp2dk2KSXZQ2</Id><UserName>test17@email.com</UserName><FirstName>Mary</FirstName><LastName>Fuller</LastName><Active>true</Active><Email>test17@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>3OEFT3WDOBWV06OcaeXJVA2</Id><UserName>test18@email.com</UserName><FirstName>Megan</FirstName><LastName>Hunter</LastName><Active>true</Active><Email>test18@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>OYvMJkDTWRJZ0ETo4a-K0w2</Id><UserName>test19@email.com</UserName><FirstName>Meme</FirstName><LastName>Hieneman</LastName><Active>true</Active><Email>test19@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>D7vK6Fqx_B8MO2SjQMeRkA2</Id><UserName>test20@email.com</UserName><FirstName>Reports</FirstName><LastName>Trifoia</LastName><Active>true</Active><Email>test20@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User><User><Id>yEbF7QIWf7kSxm7e7wUmGQ2</Id><UserName>test21@email.com</UserName><FirstName>Sarah</FirstName><LastName>Fefer</LastName><Active>true</Active><Email>test21@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>4DcFrTMdIvlQEdSe25FX8g2</Id><UserName>test22@email.com</UserName><FirstName>Scott</FirstName><LastName>Brittingham</LastName><Active>true</Active><Email>test22@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>yHv8gELu-W2dGbBs8XGNOw2</Id><UserName>test23@email.com</UserName><FirstName>Shizhuo</FirstName><LastName>Guo</LastName><Active>true</Active><Email>test23@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>4kPsoFEWmCdxbsVKmFxv0Q2</Id><UserName>test24@email.com</UserName><FirstName>Teressa</FirstName><LastName>Trusty</LastName><Active>true</Active><Email/><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>ZsFRu84TqIIna39f0ktY4A2</Id><UserName>test25@email.com</UserName><FirstName>Tony</FirstName><LastName>Jimenez</LastName><Active>true</Active><Email>test26@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User><User><Id>WG3itclDnqCnYyDDRG9wTA2</Id><UserName>test27@email.com</UserName><FirstName>Tracy</FirstName><LastName>Raulston</LastName><Active>true</Active><Email>test27@email.com</Email><AccessLevel>Learner</AccessLevel><Brand>Default</Brand></User><User><Id>6N7T1vNmJAOXaepQR3HwiA2</Id><UserName>test28@email.com</UserName><FirstName>WebApps</FirstName><LastName>Trifoia</LastName><Active>true</Active><Email>test28@email.com</Email><AccessLevel>Account_Owner</AccessLevel><Brand>Default</Brand></User></Users>",
+    "headers": {
+      "content-length": "6675",
+      "content-type": "application/xml; charset=utf-8",
+      "server": "Microsoft-IIS/7.5",
+      "x-powered-by": "ASP.NET",
+      "date": "Tue, 29 Jan 2019 20:01:44 GMT",
+      "connection": "close"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "api.litmos.com",
+        "port": 443,
+        "hostname": "api.litmos.com",
+        "hash": null,
+        "search": "?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "query": "apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "pathname": "/v1.svc/users",
+        "path": "/v1.svc/users?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "href": "https://api.litmos.com/v1.svc/users?apiKey=SECRET&source=SECRET&limit=1000&start=0"
+      },
+      "method": "GET",
+      "headers": {
+        "Content-Type": "application/xml"
+      }
+    }
+  }
+}

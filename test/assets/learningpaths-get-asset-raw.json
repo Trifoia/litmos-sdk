@@ -1,0 +1,47 @@
+{
+  "opts": {
+    "position": 0,
+    "method": "GET",
+    "path": [
+      "LearningPaths",
+      "LearningPath"
+    ],
+    "uri": "https://api.litmos.com/v1.svc/learningpaths?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+    "headers": {
+      "Content-Type": "application/xml"
+    }
+  },
+  "err": null,
+  "res": {
+    "statusCode": 200,
+    "body": "<LearningPaths xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><LearningPath><Id>ToZ4nEuhBTo1</Id><Name>PDF TEST</Name><Description/><Active>true</Active><OriginalId>74388</OriginalId><ForSale>false</ForSale><Price>0.00</Price><EcommerceShortDescription/><EcommerceLongDescription/><AccessTillDate i:nil=\"true\"/><AccessTillDays i:nil=\"true\"/></LearningPath><LearningPath><Id>g-1I1fnOYik1</Id><Name>Pyramid - Birth - 5</Name><Description/><Active>true</Active><OriginalId>66496</OriginalId><ForSale>true</ForSale><Price>49.00</Price><EcommerceShortDescription/><EcommerceLongDescription/><AccessTillDate i:nil=\"true\"/><AccessTillDays>365</AccessTillDays></LearningPath><LearningPath><Id>YotjLQ7yHL41</Id><Name>Pyramid - Infant Toddler</Name><Description/><Active>true</Active><OriginalId>66518</OriginalId><ForSale>true</ForSale><Price>49.00</Price><EcommerceShortDescription/><EcommerceLongDescription/><AccessTillDate i:nil=\"true\"/><AccessTillDays>365</AccessTillDays></LearningPath><LearningPath><Id>TOGwFX6REbQ1</Id><Name>Pyramid - Preschool</Name><Description/><Active>true</Active><OriginalId>66519</OriginalId><ForSale>true</ForSale><Price>49.00</Price><EcommerceShortDescription/><EcommerceLongDescription/><AccessTillDate i:nil=\"true\"/><AccessTillDays>365</AccessTillDays></LearningPath><LearningPath><Id>HnFT6b1-wUs1</Id><Name>Pyramid - Reducing Implicit Bias</Name><Description/><Active>true</Active><OriginalId>66520</OriginalId><ForSale>true</ForSale><Price>29.00</Price><EcommerceShortDescription/><EcommerceLongDescription/><AccessTillDate i:nil=\"true\"/><AccessTillDays>90</AccessTillDays></LearningPath><LearningPath><Id>Cyz87q5hdUE1</Id><Name>Pyramid- Trauma Informed Care</Name><Description/><Active>true</Active><OriginalId>76863</OriginalId><ForSale>false</ForSale><Price>0.00</Price><EcommerceShortDescription/><EcommerceLongDescription/><AccessTillDate i:nil=\"true\"/><AccessTillDays i:nil=\"true\"/></LearningPath><LearningPath><Id>SGbsdWFjoas1</Id><Name>TEST LP PYR</Name><Description/><Active>false</Active><OriginalId>70680</OriginalId><ForSale>true</ForSale><Price>1.00</Price><EcommerceShortDescription/><EcommerceLongDescription/><AccessTillDate i:nil=\"true\"/><AccessTillDays i:nil=\"true\"/></LearningPath></LearningPaths>",
+    "headers": {
+      "content-length": "2250",
+      "content-type": "application/xml; charset=utf-8",
+      "server": "Microsoft-IIS/7.5",
+      "x-powered-by": "ASP.NET",
+      "date": "Tue, 29 Jan 2019 21:46:05 GMT",
+      "connection": "close"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "api.litmos.com",
+        "port": 443,
+        "hostname": "api.litmos.com",
+        "hash": null,
+        "search": "?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "query": "apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "pathname": "/v1.svc/learningpaths",
+        "path": "/v1.svc/learningpaths?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "href": "https://api.litmos.com/v1.svc/learningpaths?apiKey=SECRET&source=SECRET&limit=1000&start=0"
+      },
+      "method": "GET",
+      "headers": {
+        "Content-Type": "application/xml"
+      }
+    }
+  }
+}

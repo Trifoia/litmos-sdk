@@ -1,12 +1,12 @@
 'use strict';
 
 const assert = require('assert');
-const lodash = require('lodash');
 
-const assets = require('./assets/request-test-assets.json');
+const assetsRaw = require('./assets/users-get-asset-raw.json');
+const assetsProcessed = require('./assets/users-get-asset-processed.json');
 // const env = require('../.env.json');
-const Request = require('../lib/utils/request.js');
-const LitmosOpts = require('../lib/utils/litmos-opts.js');
+const Request = require('../lib/request.js');
+const LitmosOpts = require('../lib/litmos-opts.js');
 
 /**
  * Request instance used for testing - instantiated as part of a test
@@ -23,9 +23,7 @@ let originalReq;
  */
 const proxyHandler = {
   apply: async function(target, thisArg, args) {
-    const ret = assets.requestData.find((data) => lodash.isEqual(data.opts, args[0]));
-    if (!ret) throw new Error('No Proxy Options found');
-    args[1].call(null, null, ret.res);
+    args[1].call(null, null, assetsRaw.res);
   }
 };
 
@@ -43,7 +41,7 @@ describe('request.js:', function() {
       apiKey: 'SECRET',
       source: 'SECRET'
     };
-    request = new Request(opts);
+    request = new Request(new LitmosOpts(opts));
 
     // Verify that options are set correctly
     const litmosOpts = new LitmosOpts(opts);
@@ -51,12 +49,13 @@ describe('request.js:', function() {
   });
 
   it('should be able to get a list of users', async function() {
-    const val = await request.api('/users', 'GET', null, ['Users', 'User']);
-    assert.ok(lodash.isEqual(val, assets.usersOut));
-  });
-
-  it('should be able to get a list of users with pagination', async function() {
-
+    const opts = {
+      endpoint: 'users',
+      method: 'GET',
+      path: ['Users', 'User']
+    };
+    const val = await request.api(opts);
+    assert.deepStrictEqual(val, assetsProcessed);
   });
 
   after(function() {
