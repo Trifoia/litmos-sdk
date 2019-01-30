@@ -1,6 +1,6 @@
 {
   "name": "litmos-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Node.js SDK for the Litmos Learning Management System",
   "main": "litmos.js",
   "scripts": {
@@ -17,6 +17,9 @@
     "lms"
   ],
   "author": "Trifoia <webapps@trifoia.com> (https://trifoia.com)",
+  "contributors": [
+    "Joshua Evans <thejoshuaevans@gmail.com> (https://thejoshuaevans.com)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Trifoia/litmos-sdk/issues"

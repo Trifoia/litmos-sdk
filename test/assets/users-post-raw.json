@@ -1,0 +1,49 @@
+{
+  "opts": {
+    "position": 0,
+    "method": "POST",
+    "path": [
+      "Users",
+      "User"
+    ],
+    "body": "<User><Id></Id><UserName>test0@email.com</UserName><FirstName>Joshua</FirstName><LastName>Evans</LastName><FullName></FullName><Email>test0@email.com</Email><AccessLevel>Learner</AccessLevel><DisableMessages>true</DisableMessages><Active>true</Active><LastLogin></LastLogin><LoginKey></LoginKey><IsCustomUsername>false</IsCustomUsername><SkipFirstLogin>false</SkipFirstLogin><TimeZone></TimeZone></User>",
+    "uri": "https://api.litmos.com/v1.svc/users?apiKey=SECRET&source=SECRET",
+    "headers": {
+      "Content-Type": "application/xml"
+    }
+  },
+  "err": null,
+  "res": {
+    "statusCode": 201,
+    "body": "<User xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><Id>7OEoaxzdowZrGLHX54eeng2</Id><UserName>test0@email.com</UserName><FirstName>Joshua</FirstName><LastName>Evans</LastName><FullName>Joshua Evans</FullName><Email>test0@email.com</Email><AccessLevel>Learner</AccessLevel><DisableMessages>true</DisableMessages><Active>true</Active><Skype/><PhoneWork/><PhoneMobile/><LastLogin/><LoginKey>SECRET</LoginKey><IsCustomUsername>false</IsCustomUsername><Password/><SkipFirstLogin>false</SkipFirstLogin><TimeZone>Pacific Standard Time</TimeZone><SalesforceId i:nil=\"true\"/><OriginalId>13010500</OriginalId><Street1/><Street2/><City/><State/><PostalCode/><Country/><CompanyName/><JobTitle/><CustomField1/><CustomField2/><CustomField3/><Culture>en-US</Culture><CustomField4/><CustomField5/><CustomField6/><CustomField7/><CustomField8/><CustomField9/><CustomField10/><SalesforceContactId i:nil=\"true\"/><SalesforceAccountId i:nil=\"true\"/><CreatedDate>2019-01-30T21:37:14Z</CreatedDate><Points>0</Points><Brand>Default</Brand><ManagerId>0</ManagerId><ManagerName/><EnableTextNotification>false</EnableTextNotification><Website/><Twitter/><ExpirationDate/></User>",
+    "headers": {
+      "content-length": "1251",
+      "content-type": "application/xml; charset=utf-8",
+      "server": "Microsoft-IIS/7.5",
+      "x-powered-by": "ASP.NET",
+      "date": "Wed, 30 Jan 2019 21:37:13 GMT",
+      "connection": "close"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "api.litmos.com",
+        "port": 443,
+        "hostname": "api.litmos.com",
+        "hash": null,
+        "search": "?apiKey=SECRET&source=SECRET",
+        "query": "apiKey=SECRET&source=SECRET",
+        "pathname": "/v1.svc/users",
+        "path": "/v1.svc/users?apiKey=SECRET&source=SECRET",
+        "href": "https://api.litmos.com/v1.svc/users?apiKey=SECRET&source=SECRET"
+      },
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/xml",
+        "content-length": 421
+      }
+    }
+  }
+}

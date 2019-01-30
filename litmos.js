@@ -6,6 +6,7 @@ const LitmosOpts = require('./lib/litmos-opts.js');
 const Request = require('./lib/request.js');
 
 const generators = require('./lib/generators.js');
+const helpers = require('./lib/litmos-helpers.js');
 
 // String constants
 const LEARNINGPATHS = 'learningpaths';
@@ -120,6 +121,11 @@ class Litmos {
       // Attach valid sub-paths
       users: this.users
     };
+
+    /**
+     * Helper methods that assist with more complicated functionality
+     */
+    this.helpers = helpers;
   }
 
   /**
@@ -187,7 +193,7 @@ class Litmos {
    */
   async post(data, params = {}) {
     const path = this._determinePath(this._endpoint);
-    const body = {};
+    let body = {};
 
     // We need to create an object that will resolve to the following XML pattern ("Users" is a placeholder example)
     // The _determinePath function used to process incoming data also works for generating data - as the
@@ -227,6 +233,14 @@ class Litmos {
       subItem[path[1]] = item;
       body[path[0]].push(subItem);
     });
+
+    // Handle special cases
+    // 1: POST a new user
+    //    When creating a new user, the <Users> field (containing <User> fields) is not present
+    if (this._endpoint.length === 1 && this._endpoint[0] === 'users') {
+      body = body[path[0]][0];
+    }
+
     const opts = {
       endpoint: this._endpoint.join('/'),
       method: 'POST',
@@ -240,7 +254,9 @@ class Litmos {
       res = await this._request.api(opts);
     } catch (e) {
       // Log the error and continue to unravel the stack
-      console.error(e);
+      console.log('\nPOST ERROR:'); console.group();
+      console.error(e.body);
+      console.error(e.statusCode); console.groupEnd();
       throw e;
     }
     this._endpoint.length = 0;

@@ -7,26 +7,18 @@ const assert = require('assert');
 const lodash = require('lodash');
 
 const assetsRaw = [
-  [
-    require('./assets/users-get-asset-raw.json')
-  ],
+  [require('./assets/users-get-asset-raw.json')],
   [
     require('./assets/users-get-paginated-asset-raw-01.json'),
     require('./assets/users-get-paginated-asset-raw-02.json'),
     require('./assets/users-get-paginated-asset-raw-03.json')
   ],
-  [
-    require('./assets/users-search-asset-raw.json')
-  ],
-  [
-    require('./assets/learningpaths-get-asset-raw.json')
-  ],
-  [
-    require('./assets/users-id-get-asset-raw.json')
-  ],
-  [
-    require('./assets/users-id-learningpaths-get-raw.json')
-  ]
+  [require('./assets/users-search-asset-raw.json')],
+  [require('./assets/learningpaths-get-asset-raw.json')],
+  [require('./assets/users-id-get-asset-raw.json')],
+  [require('./assets/users-id-learningpaths-get-raw.json')],
+  [require('./assets/users-id-learningpaths-post-raw.json')],
+  [require('./assets/users-post-raw.json')]
 ];
 const assetsProcessed = [
   require('./assets/users-get-asset-processed.json'),
@@ -34,7 +26,9 @@ const assetsProcessed = [
   require('./assets/users-search-asset-processed.json'),
   require('./assets/learningpaths-get-asset-processed.json'),
   require('./assets/users-id-get-asset-processed.json'),
-  require('./assets/users-id-learningpaths-get-processed.json')
+  require('./assets/users-id-learningpaths-get-processed.json'),
+  require('./assets/users-id-learningpaths-post-processed.json'),
+  require('./assets/users-post-processed.json')
 ];
 
 let litmos = null;
@@ -91,12 +85,12 @@ describe('litmos.js', function() {
   });
 
   describe('users/', () => {
-    it('should be able to get a simple list of users', async () => {
+    it('should be able to GET a simple list of users', async () => {
       currentTest = 0;
       const res = await litmos.users.get();
       assert.deepStrictEqual(res, assetsProcessed[currentTest]);
     });
-    it('should be able to get a paginated list of users', async () => {
+    it('should be able to GET a paginated list of users', async () => {
       currentTest = 1;
       const res = await litmos.users.get();
 
@@ -108,17 +102,33 @@ describe('litmos.js', function() {
       const res = await litmos.users.search('test0@email.com');
       assert.deepStrictEqual(res, assetsProcessed[currentTest]);
     });
+    it('should be able to POST a new user', async () => {
+      currentTest = 7;
+      const newUser = litmos.helpers.generateUserObject({
+        UserName: 'test0@email.com',
+        FirstName: 'Joshua',
+        LastName: 'Evans',
+        DisableMessages: true
+      });
+      const res = await litmos.users.post(newUser);
+      assert.deepStrictEqual(res, assetsProcessed[currentTest]);
+    });
     describe('{id}/', () => {
-      it('should be able to get a specific user', async () => {
+      it('should be able to GET a specific user', async () => {
         currentTest = 4;
         const res = await litmos.users.id('w8_XWWRCq7S5xPc4LdjqMw2').get();
         assert.deepStrictEqual(res, assetsProcessed[currentTest]);
       });
 
       describe('learningpaths/', () => {
-        it('should be able to get a user\'s learning paths', async () => {
+        it('should be able to GET a user\'s learning paths', async () => {
           currentTest = 5;
           const res = await litmos.users.id('LePcvst-OlRc4zjvEljB6A2').learningpaths.get();
+          assert.deepStrictEqual(res, assetsProcessed[currentTest]);
+        });
+        it('should be able to POST a new learning path to a user', async () => {
+          currentTest = 6;
+          const res = await litmos.users.id('LePcvst-OlRc4zjvEljB6A2').learningpaths.post({Id: 'TY06ocOKyzM1'});
           assert.deepStrictEqual(res, assetsProcessed[currentTest]);
         });
       });
@@ -126,7 +136,7 @@ describe('litmos.js', function() {
   });
 
   describe('learningpaths/', () => {
-    it('should be able to get a list of learning paths', async () => {
+    it('should be able to GET a list of learning paths', async () => {
       currentTest = 3;
       const res = await litmos.learningpaths.get();
       assert.deepStrictEqual(res, assetsProcessed[currentTest]);

@@ -24,6 +24,10 @@ describe('Smoke tests', function() {
       const Generators = require('../lib/generators.js');
       assert.ok(Generators);
     });
+    it('Litmos helper import', () => {
+      const litmosHelpers= require('../lib/litmos-helpers.js');
+      assert.ok(litmosHelpers);
+    });
     it('Litmos SDK import', () => {
       const Litmos = require('../litmos.js');
       assert.ok(Litmos);

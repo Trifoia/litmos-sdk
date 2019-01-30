@@ -10,6 +10,123 @@ https://support.litmos.com/hc/en-us/sections/206185047-Developer-API
 # PRE-RELEASE DEVELOPMENT
 WARNING: Expect major changes in minor version updates (0.x.0) until version 1.0.0 is reached. This SDK is currently **unstable**
 
+# Usage
+This SDK is meant to reflect the actual REST API as closely as possible so that the Litmos API docs themselves can provide guidence on how to use this SDK
+
+First, import and create an instance of the Litmos class with required and optional settings. See [litmos-opts.js](./lib/litmos-opts.js) for a full list of possible options
+``` js
+const Litmos = require('./litmos.js');
+const env = require('./.env.json');
+
+const litmosOpts = {
+  apiKey: env.LITMOS_TRIFOIA_API_KEY,
+  source: env.LITMOS_SOURCE
+};
+const litmos = new Litmos(litmosOpts);
+```
+
+Once instantiated, method / object chaining is used to access the desired endpoint. This method chain should match the form of the API Endpoint as follows:
+``` js
+GET users/
+// Becomes...
+litmos.users.get()
+
+GET users/{user-id}
+// Becomes...
+litmos.users.id({user-id}).get()
+
+POST users/{user-id}/learningpaths
+// Becomes...
+litmos.users.id({user-id}).learningpaths.post({Learning path data})
+```
+
+All method chains **must** end with a request method. Valid methods are:
+``` js
+get()                     // Performs a GET request on the preceding endpoint
+search(term {string})     // Performs a search operation on the preceding endpoint using the given term
+post(post-data {object})  // Performs a POST request on the preceding endpoint. Takes a body to post
+put(put-data {object})    // (NOT YET IMPLEMENTED) Performs a PUT request on the preceding endpoint. Takes a body to put
+details()                 // (NOT YET IMPLEMENTED) Gets details on the preceding endpoint
+del()                     // (NOT YET IMPLEMENTED) Performs a DELETE request on the preceding endpoint
+```
+## Async
+All request methods are asynchronous - they will return a Promise that is resolved with processed response data from Litmos, or reject with an error. The `await` keyword should be used when processing data:
+``` js
+// All of these requests will happen one after the other
+// Wait for the GET request to succeed before saving the response and continuing
+const allUsers = await litmos.users.get();
+
+// Wait for the GET request
+const allLearningPaths = await litmos.learningpaths.get();
+
+// Wait for the POST request
+const postRes = await litmos.users.id('user-id').learningpaths.post({Id: 'lp-id'});
+```
+## Pagination
+Litmos will only provide a maximum of 1000 elements from any request, to get more elements pagination must be used. Fortunately the system will automatically determine if pagination is required, and keep paging through responses until all elements are received. This functionality cannot currently be disabled (TODO: Allow disabling of pagination)
+``` js
+// There are 4231 users
+const allUsers = await litmos.users.get();
+
+console.log(allUsers.length); // Outputs "4231"
+```
+
+## POST / PUT Requests
+When performing a POST or PUT request, the provided data should be a JavaScript object, these object will automatically be wrapped in the required endpoint identifiers before being sent to the appropriate endpoint. For example:
+
+According to the Litmos documentation, the following xml would be used to assign a learning path to a user:
+``` xml
+<LearningPaths>
+  <LearningPath>
+    <Id>[LearningPathId]</Id>
+  </LearningPath>
+  <LearningPath>
+    ...
+  </LearningPath>
+</LearningPaths>
+```
+
+This XML is equivalent to this JSON:
+``` json
+{
+  "LearningPaths": [
+    {
+      "LearningPath": {
+        "Id": "LearningPathId"
+      }
+    },
+    {
+      "LearningPath": {
+        ...
+      }
+    }
+  ]
+}
+```
+
+However, when using the SDK to update a learning path, the system already knows what should wrap the data, so the following form would be used:
+``` js
+const newLps = [
+  { Id: 'LearningPathId1' },
+  { Id: 'LearningPathId2' }
+];
+await litmos.users.id('user-id').learningpaths.push(newLps);
+```
+## Helpers
+Some operations are especially complicated - in these cases helpers are available that simplify things
+
+### Creating New Users
+The requirements for creating new users (`litmos.users.post(data)`) are very precise, and a single misconfigured element can result in a server error. For this reason the `litmos.helpers.generateUserObject()` method exists to assist with generation of correctly formatted user data. Ex:
+``` js
+const userOpts = {
+  UserName: 'test0@email.com',
+  FirstName: 'First',
+  LastName: 'Last',
+  DisableMessages: true
+};
+const newUser = litmos.helpers.generateUserObject(userOpts);
+const response = await litmos.users.post(newUser);
+```
 # Development Principles
 The following principles should be followed when developing this sdk:
 - Be aware of dependency usage, and use as few dependencies as possible
@@ -31,4 +148,4 @@ Almost every object in Litmos has two _different_ ids associated with it, the `o
 The Litmos API documentation claims that both XML and JSON is supported for data transfer. However, this is not the case for _all_ litmos endpoints. Some of the older endpoints do not actually support the JSON data format. As such, only the XML endpoints should ever actually be used when making requests
 
 ## Object Key Order
-When sending requests via XML, the order of object in the XML document _does_ matter in some cases, despite being considered "unordered" according to the xml specification. This should be kept in mind if encountering bugs despite the presence of all required fields
+When sending requests via XML, the order of object in the XML document _does_ matter in some cases. This should be kept in mind if encountering bugs despite the presence of all required fields
