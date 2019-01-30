@@ -20,13 +20,21 @@ const assetsRaw = [
   ],
   [
     require('./assets/learningpaths-get-asset-raw.json')
+  ],
+  [
+    require('./assets/users-id-get-asset-raw.json')
+  ],
+  [
+    require('./assets/users-id-learningpaths-get-raw.json')
   ]
 ];
 const assetsProcessed = [
   require('./assets/users-get-asset-processed.json'),
   require('./assets/users-get-paginated-asset-processed.json'),
   require('./assets/users-search-asset-processed.json'),
-  require('./assets/learningpaths-get-asset-processed.json')
+  require('./assets/learningpaths-get-asset-processed.json'),
+  require('./assets/users-id-get-asset-processed.json'),
+  require('./assets/users-id-learningpaths-get-processed.json')
 ];
 
 let litmos = null;
@@ -52,7 +60,7 @@ const proxyHandler = {
     // Try to find the provided options among the raw assets
     const foundAsset = currentAssetsRaw.find((obj) => lodash.isEqual(obj.opts, args[0]));
     if (!foundAsset) {
-      console.log(args);
+      console.error(args);
       throw new Error('Could not find matching response data!');
     }
     args[1].call(null, null, foundAsset.res);
@@ -82,7 +90,7 @@ describe('litmos.js', function() {
     });
   });
 
-  describe('users', () => {
+  describe('users/', () => {
     it('should be able to get a simple list of users', async () => {
       currentTest = 0;
       const res = await litmos.users.get();
@@ -100,9 +108,24 @@ describe('litmos.js', function() {
       const res = await litmos.users.search('test0@email.com');
       assert.deepStrictEqual(res, assetsProcessed[currentTest]);
     });
+    describe('{id}/', () => {
+      it('should be able to get a specific user', async () => {
+        currentTest = 4;
+        const res = await litmos.users.id('w8_XWWRCq7S5xPc4LdjqMw2').get();
+        assert.deepStrictEqual(res, assetsProcessed[currentTest]);
+      });
+
+      describe('learningpaths/', () => {
+        it('should be able to get a user\'s learning paths', async () => {
+          currentTest = 5;
+          const res = await litmos.users.id('LePcvst-OlRc4zjvEljB6A2').learningpaths.get();
+          assert.deepStrictEqual(res, assetsProcessed[currentTest]);
+        });
+      });
+    });
   });
 
-  describe('learningpaths', () => {
+  describe('learningpaths/', () => {
     it('should be able to get a list of learning paths', async () => {
       currentTest = 3;
       const res = await litmos.learningpaths.get();

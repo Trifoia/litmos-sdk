@@ -1,0 +1,47 @@
+{
+  "opts": {
+    "position": 0,
+    "method": "GET",
+    "path": [
+      "Users",
+      "User"
+    ],
+    "uri": "https://api.litmos.com/v1.svc/users/w8_XWWRCq7S5xPc4LdjqMw2?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+    "headers": {
+      "Content-Type": "application/xml"
+    }
+  },
+  "err": null,
+  "res": {
+    "statusCode": 200,
+    "body": "<User xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><Id>w8_XWWRCq7S5xPc4LdjqMw2</Id><UserName>test0@email.com</UserName><FirstName>Joshua</FirstName><LastName>Evans</LastName><FullName>Joshua Evans</FullName><Email>test0@email.com</Email><AccessLevel>Account_Owner</AccessLevel><DisableMessages>true</DisableMessages><Active>true</Active><Skype/><PhoneWork/><PhoneMobile/><LastLogin>2019-01-28T16:48:50Z</LastLogin><LoginKey>SECRET</LoginKey><IsCustomUsername>false</IsCustomUsername><Password/><SkipFirstLogin>true</SkipFirstLogin><TimeZone>UTC</TimeZone><SalesforceId i:nil=\"true\"/><OriginalId>10152517</OriginalId><Street1>SECRET</Street1><Street2/><City>SECRET</City><State>SECRET</State><PostalCode>SECRET</PostalCode><Country>SECRET</Country><CompanyName>SECRET</CompanyName><JobTitle>SECRET</JobTitle><CustomField1/><CustomField2/><CustomField3/><Culture>en-US</Culture><CustomField4/><CustomField5/><CustomField6/><CustomField7/><CustomField8/><CustomField9/><CustomField10/><SalesforceContactId i:nil=\"true\"/><SalesforceAccountId i:nil=\"true\"/><CreatedDate>2018-04-26T21:08:12Z</CreatedDate><Points>0</Points><Brand>Default</Brand><ManagerId>f63_TabT3ks1</ManagerId><ManagerName>Daniel Blasher test1@email.com</ManagerName><EnableTextNotification>false</EnableTextNotification><Website>SECRET</Website><Twitter/><ExpirationDate/></User>",
+    "headers": {
+      "content-length": "1456",
+      "content-type": "application/xml; charset=utf-8",
+      "server": "Microsoft-IIS/7.5",
+      "x-powered-by": "ASP.NET",
+      "date": "Tue, 29 Jan 2019 22:09:39 GMT",
+      "connection": "close"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "api.litmos.com",
+        "port": 443,
+        "hostname": "api.litmos.com",
+        "hash": null,
+        "search": "?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "query": "apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "pathname": "/v1.svc/users/w8_XWWRCq7S5xPc4LdjqMw2",
+        "path": "/v1.svc/users/w8_XWWRCq7S5xPc4LdjqMw2?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "href": "https://api.litmos.com/v1.svc/users/w8_XWWRCq7S5xPc4LdjqMw2?apiKey=SECRET&source=SECRET&limit=1000&start=0"
+      },
+      "method": "GET",
+      "headers": {
+        "Content-Type": "application/xml"
+      }
+    }
+  }
+}

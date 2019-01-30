@@ -1,5 +1,7 @@
 'use strict';
 
+const lodash = require('lodash');
+
 const LitmosOpts = require('./lib/litmos-opts.js');
 const Request = require('./lib/request.js');
 
@@ -173,11 +175,76 @@ class Litmos {
     return res;
   }
 
+  /**
+   * Used to perform "POST" requests on the Litmos API. This function must always come after a chain of
+   * path identifiers - for example:
+   * `litmos.users.post({user-data})`
+   *
+   * If called outside of a method chain, an error will be thrown
+   *
+   * @param {object} data Data to post to Litmos
+   * @param {*} params Optional query parameters to add to the request
+   */
   async post(data, params = {}) {
-    console.log('POST request');
-    console.log(data);
-    console.log(this._endpoint);
+    const path = this._determinePath(this._endpoint);
+    const body = {};
+
+    // We need to create an object that will resolve to the following XML pattern ("Users" is a placeholder example)
+    // The _determinePath function used to process incoming data also works for generating data - as the
+    // last known endpoint part _should_ identify the type of data being sent
+    /*
+    <Users>
+      <User>
+        <Id>Some id</Id>
+      </User>
+      <User>
+        <Id>Some other Id</Id>
+      </User>
+    </Users>
+    */
+    // This is equivalent to the following JSON:
+    /*
+    {
+      Users: [
+        {
+          User: {
+            Id: Some id
+          }
+        },
+        {
+          User: {
+            Id: Some other Id
+          }
+        }
+      ]
+    }
+    */
+
+    if (!lodash.isArray(data)) data = [data];
+    body[path[0]] = [];
+    data.forEach((item) => {
+      const subItem = {};
+      subItem[path[1]] = item;
+      body[path[0]].push(subItem);
+    });
+    const opts = {
+      endpoint: this._endpoint.join('/'),
+      method: 'POST',
+      path,
+      body
+    };
+
+    // Do some additional error checking here in case there is an issue
+    let res;
+    try {
+      res = await this._request.api(opts);
+    } catch (e) {
+      // Log the error and continue to unravel the stack
+      console.error(e);
+      throw e;
+    }
     this._endpoint.length = 0;
+    return res;
   }
 }
 

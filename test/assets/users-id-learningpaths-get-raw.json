@@ -1,0 +1,47 @@
+{
+  "opts": {
+    "position": 0,
+    "method": "GET",
+    "path": [
+      "LearningPaths",
+      "LearningPath"
+    ],
+    "uri": "https://api.litmos.com/v1.svc/users/LePcvst-OlRc4zjvEljB6A2/learningpaths?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+    "headers": {
+      "Content-Type": "application/xml"
+    }
+  },
+  "err": null,
+  "res": {
+    "statusCode": 200,
+    "body": "<LearningPaths xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><LearningPath><Id>TY06ocOKyzM1</Id><Name>Test LP sell</Name><Active>true</Active><OriginalId>63533</OriginalId><Complete>false</Complete><PercentageComplete>0.00</PercentageComplete><AssignedDate>2019-01-29T22:45:54.173</AssignedDate><StartDate i:nil=\"true\"/><DateCompleted i:nil=\"true\"/><ResultId>9581978</ResultId><AccessTillDate i:nil=\"true\"/></LearningPath></LearningPaths>",
+    "headers": {
+      "content-length": "444",
+      "content-type": "application/xml; charset=utf-8",
+      "server": "Microsoft-IIS/7.5",
+      "x-powered-by": "ASP.NET",
+      "date": "Tue, 29 Jan 2019 23:54:21 GMT",
+      "connection": "close"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "api.litmos.com",
+        "port": 443,
+        "hostname": "api.litmos.com",
+        "hash": null,
+        "search": "?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "query": "apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "pathname": "/v1.svc/users/LePcvst-OlRc4zjvEljB6A2/learningpaths",
+        "path": "/v1.svc/users/LePcvst-OlRc4zjvEljB6A2/learningpaths?apiKey=SECRET&source=SECRET&limit=1000&start=0",
+        "href": "https://api.litmos.com/v1.svc/users/LePcvst-OlRc4zjvEljB6A2/learningpaths?apiKey=SECRET&source=SECRET&limit=1000&start=0"
+      },
+      "method": "GET",
+      "headers": {
+        "Content-Type": "application/xml"
+      }
+    }
+  }
+}
