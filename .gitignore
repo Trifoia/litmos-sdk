@@ -67,3 +67,7 @@ typings/
 # Testing playground
 testing.js
 testing-data/
+
+# Build Directories for Lambda Layers
+nodejs/
+build/
