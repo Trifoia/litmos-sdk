@@ -10,6 +10,10 @@ clean:
 install: clean
 	npm i
 
+# Install production dependencies
+install-prod: clean
+	npm i --only=prod
+
 # Lints all files, and attempts to fix any that it can
 lint:
 	node ./node_modules/.bin/eslint . --fix
@@ -27,11 +31,9 @@ coverage:
 	npm run coverage
 
 # Zips up all required files for uploading to a Lambda Layer
-package: # clean install lint test
+package: install-prod # clean install lint test
 	# Clean and install only production modules
-	rm -rf node_modules
 	rm -rf nodejs
-	npm install --only=production
 
 	# Create package directories
 	mkdir -p $(PACKAGE_LOCATION)
