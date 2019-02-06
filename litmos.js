@@ -241,12 +241,15 @@ class Litmos {
       body = body[path[0]][0];
     }
 
-    const opts = {
+    let opts = {
       endpoint: this._endpoint.join('/'),
       method: 'POST',
       path,
       body
     };
+
+    // Combine options with supplied parameters
+    opts = Object.assign(params, opts);
 
     // Do some additional error checking here in case there is an issue
     let res;
