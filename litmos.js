@@ -11,11 +11,15 @@ const helpers = require('./lib/litmos-helpers.js');
 // String constants
 const LEARNINGPATHS = 'learningpaths';
 const USERS = 'users';
+const TEAMS = 'teams';
+const COURSES = 'courses';
 
 // Paths
 const PATHS = {};
 PATHS[LEARNINGPATHS] = ['LearningPaths', 'LearningPath'];
 PATHS[USERS] = ['Users', 'User'];
+PATHS[TEAMS] = ['Teams', 'Team'];
+PATHS[COURSES] = ['Courses', 'Course'];
 
 /**
  * The Litmos class is the main entry-point or Litmos SDK operations
@@ -119,6 +123,36 @@ class Litmos {
       post: generators.generatePost(this, LEARNINGPATHS),
 
       // Attach valid sub-paths
+      users: this.users,
+      courses: this.courses
+    };
+
+    /**
+     * Base "teams" endpoint access
+     */
+    this.teams = {
+      // Generate chainable functions
+      id: generators.generateId(this, TEAMS),
+
+      // Generate non-chainable functions
+      get: generators.generateGet(this, TEAMS),
+
+      // Attach valid sub-paths
+      users: this.users,
+      learningpaths: this.learningpaths
+    };
+
+    /**
+     * Base "courses" endpoint access
+     */
+    this.courses = {
+      // Generate chainable functions
+      id: generators.generateId(this, COURSES),
+
+      // Generate non-chainable functions
+      get: generators.generateGet(this, COURSES),
+
+      // Attach valid sub-paths
       users: this.users
     };
 
@@ -129,22 +163,9 @@ class Litmos {
   }
 
   /**
-   * Creates a brand new Litmos SDK instance with the same settings as `this` instance - used for command chaining
-   *
-   * @return {Litmos} New Litmos SDK instance
-   */
-  clone() {
-    const newInstance = new Litmos(this.opts);
-    newInstance._endpoint = this._endpoint.slice();
-    return newInstance;
-  }
-
-  /**
    * Performs a search operation with a specific term. This function must always come after a chain of path
    * identifiers - for example:
    * `litmos.users.search('some@email.com')`
-   *
-   * If called outside a method chain, an error will be thrown
    *
    * @param {string} term Search term to use
    * @param {object} params Optional query parameters to add to the request
