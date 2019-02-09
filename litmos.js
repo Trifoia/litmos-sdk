@@ -163,6 +163,14 @@ class Litmos {
   }
 
   /**
+   * The total number of API calls made to the Litmos API. Note that sometimes a single request can use
+   * multiple API calls if pagination was required
+   */
+  get requestCount() {
+    return this._request.requestCount;
+  }
+
+  /**
    * Performs a search operation with a specific term. This function must always come after a chain of path
    * identifiers - for example:
    * `litmos.users.search('some@email.com')`
