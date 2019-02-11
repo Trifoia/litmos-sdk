@@ -171,6 +171,24 @@ class Litmos {
   }
 
   /**
+   * Allows the injection of an arbitrary path into the request chain. ex:
+```
+litmos.setPath(['users', 'user-id', 'learningpaths']).get();
+// Is the same as...
+litmos.users.id('user-id').learningpaths.get()
+```
+   *
+   * This is useful for programmatically determining endpoints
+   *
+   * @param {string[]} pathArr The endpoint to make a request agains, in array form
+   * @return {object} `this`
+   */
+  setPath(pathArr) {
+    this._endpoint = pathArr;
+    return this;
+  }
+
+  /**
    * Performs a search operation with a specific term. This function must always come after a chain of path
    * identifiers - for example:
    * `litmos.users.search('some@email.com')`
@@ -193,7 +211,7 @@ class Litmos {
    *
    * If called outside of a method chain, an error will be thrown
    *
-   * @param {object} params Optional query parameters to add to the request
+   * @param {object} [params] Query parameters to add to the request
    */
   async get(params = {}) {
     let opts = {
