@@ -34,6 +34,12 @@ class Litmos {
    * @param {string} value String to add to the endpoint array
    */
   _addEndpoint(value) {
+    // Special cases:
+    // Sub-team access requires the use of multiple `team` endpoint values
+    if (value === 'teams') {
+      this._endpoint.push(value);
+      return;
+    }
     if (this._endpoint.includes(value)) throw new Error(`Value: "${value}" already present in endpoint array`);
     this._endpoint.push(value);
   }
@@ -65,6 +71,98 @@ class Litmos {
     }
 
     return path;
+  }
+
+  /**
+   * Used to send data to the Litmos API. This function should only used internally
+   *
+   * If called outside of a method chain, an error will be thrown
+   *
+   * @param {string} method HTTP Method (PUT or POST)
+   * @param {object} data Data to post to Litmos
+   * @param {object} params Optional query parameters to add to the request
+   */
+  async _sendData(method, data, params = {}) {
+    method = method.toUpperCase();
+    const path = this._determinePath(this._endpoint);
+    let body = {};
+
+    // We need to create an object that will resolve to the following XML pattern ("Users" is a placeholder example)
+    // The _determinePath function used to process incoming data also works for generating data - as the
+    // last known endpoint part should identify the type of data being sent
+    /*
+    <Users>
+      <User>
+        <Id>Some id</Id>
+      </User>
+      <User>
+        <Id>Some other Id</Id>
+      </User>
+    </Users>
+    */
+    // This is equivalent to the following JSON:
+    /*
+    {
+      Users: [
+        {
+          User: {
+            Id: Some id
+          }
+        },
+        {
+          User: {
+            Id: Some other Id
+          }
+        }
+      ]
+    }
+    */
+
+    if (!lodash.isArray(data)) data = [data];
+    body[path[0]] = [];
+    data.forEach((item) => {
+      const subItem = {};
+      subItem[path[1]] = item;
+      body[path[0]].push(subItem);
+    });
+
+    // Handle special cases
+    // 1: Create a single user
+    //    When creating a new user, the <Users> field (containing <User> fields) is not present
+    if (this._endpoint.length === 1 && this._endpoint[0] === 'users') {
+      body = body[path[0]][0];
+    }
+
+    // 2: Create or modify a single team
+    //    When creating a new user, the <Teams> field (containing <Team> fields) is not present
+    const isCreatingNewTeam = this._endpoint.length === 1 && this._endpoint[0] === 'teams';
+    const isUpdatingTeam = this._endpoint.length === 2 && this._endpoint[0] === 'teams';
+    const isCreatingSubTeam = this._endpoint.length === 3 && this._endpoint[0] === 'teams' && this._endpoint[2] === 'teams';
+    if (isCreatingNewTeam || isUpdatingTeam || isCreatingSubTeam) {
+      body = body[path[0]][0];
+    }
+
+    let opts = {
+      endpoint: this._endpoint.join('/'),
+      method, path, body
+    };
+
+    // Combine options with supplied parameters
+    opts = Object.assign(params, opts);
+
+    // Do some additional error checking here in case there is an issue
+    let res;
+    try {
+      res = await this._request.api(opts);
+    } catch (e) {
+      // Log the error and continue to unravel the stack
+      console.log(`\n${method} ERROR:`); console.group();
+      console.error(e.body);
+      console.error(e.statusCode); console.groupEnd();
+      throw e;
+    }
+    this._endpoint.length = 0;
+    return res;
   }
 
   /**
@@ -136,6 +234,7 @@ class Litmos {
 
       // Generate non-chainable functions
       get: generators.generateGet(this, TEAMS),
+      post: generators.generatePost(this, TEAMS),
 
       // Attach valid sub-paths
       users: this.users,
@@ -229,6 +328,20 @@ litmos.users.id('user-id').learningpaths.get()
   }
 
   /**
+   * Used to perform "PUT" requests on the Litmos API. The PUT method is generally used for updating records. This
+   * function must always come after a chain of path identifiers - for example:
+   * `litmos.users.put({user-data})`
+   *
+   * If called outside of a method chain, an error will be thrown
+   *
+   * @param {object} data Data to put to Litmos
+   * @param {*} params Optional query parameters to add to the request
+   */
+  async put(data, params = {}) {
+    return this._sendData('PUT', data, params);
+  }
+
+  /**
    * Used to perform "POST" requests on the Litmos API. This function must always come after a chain of
    * path identifiers - for example:
    * `litmos.users.post({user-data})`
@@ -239,78 +352,7 @@ litmos.users.id('user-id').learningpaths.get()
    * @param {*} params Optional query parameters to add to the request
    */
   async post(data, params = {}) {
-    const path = this._determinePath(this._endpoint);
-    let body = {};
-
-    // We need to create an object that will resolve to the following XML pattern ("Users" is a placeholder example)
-    // The _determinePath function used to process incoming data also works for generating data - as the
-    // last known endpoint part _should_ identify the type of data being sent
-    /*
-    <Users>
-      <User>
-        <Id>Some id</Id>
-      </User>
-      <User>
-        <Id>Some other Id</Id>
-      </User>
-    </Users>
-    */
-    // This is equivalent to the following JSON:
-    /*
-    {
-      Users: [
-        {
-          User: {
-            Id: Some id
-          }
-        },
-        {
-          User: {
-            Id: Some other Id
-          }
-        }
-      ]
-    }
-    */
-
-    if (!lodash.isArray(data)) data = [data];
-    body[path[0]] = [];
-    data.forEach((item) => {
-      const subItem = {};
-      subItem[path[1]] = item;
-      body[path[0]].push(subItem);
-    });
-
-    // Handle special cases
-    // 1: POST a new user
-    //    When creating a new user, the <Users> field (containing <User> fields) is not present
-    if (this._endpoint.length === 1 && this._endpoint[0] === 'users') {
-      body = body[path[0]][0];
-    }
-
-    let opts = {
-      endpoint: this._endpoint.join('/'),
-      method: 'POST',
-      path,
-      body
-    };
-
-    // Combine options with supplied parameters
-    opts = Object.assign(params, opts);
-
-    // Do some additional error checking here in case there is an issue
-    let res;
-    try {
-      res = await this._request.api(opts);
-    } catch (e) {
-      // Log the error and continue to unravel the stack
-      console.log('\nPOST ERROR:'); console.group();
-      console.error(e.body);
-      console.error(e.statusCode); console.groupEnd();
-      throw e;
-    }
-    this._endpoint.length = 0;
-    return res;
+    return this._sendData('POST', data, params);
   }
 }
 
