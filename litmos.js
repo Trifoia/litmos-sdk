@@ -279,7 +279,7 @@ litmos.users.id('user-id').learningpaths.get()
    *
    * This is useful for programmatically determining endpoints
    *
-   * @param {string[]} pathArr The endpoint to make a request agains, in array form
+   * @param {string[]} pathArr The endpoint to make a request against, in array form
    * @return {object} `this`
    */
   setPath(pathArr) {
@@ -322,8 +322,8 @@ litmos.users.id('user-id').learningpaths.get()
     // Combine options with supplied parameters
     opts = Object.assign(params, opts);
 
-    const res = await this._request.api(opts);
     this._endpoint.length = 0;
+    const res = await this._request.api(opts);
     return res;
   }
 
