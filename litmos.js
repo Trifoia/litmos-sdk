@@ -237,6 +237,7 @@ class Litmos {
       post: generators.generatePost(this, TEAMS),
 
       // Attach valid sub-paths
+      teams: this.teams,
       users: this.users,
       learningpaths: this.learningpaths
     };
