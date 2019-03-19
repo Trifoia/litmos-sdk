@@ -146,6 +146,7 @@ class Litmos {
       endpoint: this._endpoint.join('/'),
       method, path, body
     };
+    this._endpoint.length = 0;
 
     // Combine options with supplied parameters
     opts = Object.assign(params, opts);
@@ -158,10 +159,9 @@ class Litmos {
       // Log the error and continue to unravel the stack
       console.log(`\n${method} ERROR:`); console.group();
       console.error(e.body);
-      console.error(e.statusCode); console.groupEnd();
+      console.error(`Status Code: ${e.statusCode}`); console.groupEnd();
       throw e;
     }
-    this._endpoint.length = 0;
     return res;
   }
 
@@ -206,7 +206,8 @@ class Litmos {
       post: generators.generatePost(this, USERS),
 
       // Attach valid sub-paths
-      learningpaths: this.learningpaths
+      learningpaths: this.learningpaths,
+      teams: this.teams
     };
 
     /**
