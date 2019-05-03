@@ -28,8 +28,8 @@ class Litmos {
   /**
    * @private
    * Used internally for method chaining
-   * Adds a string to the endpoint array. Will throw an error if that string is already present, since circular
-   * request paths are never used in Litmos
+   * Adds a string to the endpoint array. Will throw an error if that string is already present for all strings except
+   * "teams" - since circular request paths are never used in Litmos except to access sub-teams
    *
    * @param {string} value String to add to the endpoint array
    */
