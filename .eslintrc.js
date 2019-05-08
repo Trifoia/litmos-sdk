@@ -12,6 +12,7 @@ module.exports = {
     'camelCase': 0,
     'no-extend-native': 'off',
     'one-var': 0,
+    'no-invalid-this': 0,
     'max-len': ['error', {
       'code': 120,
       'ignoreStrings': true,

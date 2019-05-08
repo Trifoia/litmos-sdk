@@ -13,6 +13,7 @@ const LEARNINGPATHS = 'learningpaths';
 const USERS = 'users';
 const TEAMS = 'teams';
 const COURSES = 'courses';
+const MODULES = 'modules';
 
 // Paths
 const PATHS = {};
@@ -20,6 +21,7 @@ PATHS[LEARNINGPATHS] = ['LearningPaths', 'LearningPath'];
 PATHS[USERS] = ['Users', 'User'];
 PATHS[TEAMS] = ['Teams', 'Team'];
 PATHS[COURSES] = ['Courses', 'Course'];
+PATHS[MODULES] = ['Modules', 'Module'];
 
 /**
  * The Litmos class is the main entry-point or Litmos SDK operations
@@ -254,7 +256,19 @@ class Litmos {
       get: generators.generateGet(this, COURSES),
 
       // Attach valid sub-paths
-      users: this.users
+      users: this.users,
+      modules: this.modules
+    };
+
+    /**
+     * "Modules" endpoint access. Note that this method can _only_ be used if chained after a "courses" method
+     */
+    this.modules = {
+      // Generate chainable functions
+      id: generators.generateId(this, MODULES),
+
+      // Generate non-chainable functions
+      get: generators.generateGet(this, MODULES)
     };
 
     /**

@@ -1,6 +1,6 @@
 {
   "name": "@trifoia/litmos-sdk",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Node.js SDK for the Litmos Learning Management System",
   "main": "litmos.js",
   "scripts": {
@@ -28,10 +28,10 @@
   "dependencies": {
     "lodash": "^4.17.11",
     "request": "^2.88.0",
-    "xml-js": "^1.6.9"
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
-    "eslint": "^5.15.3",
+    "eslint": "^5.16.0",
     "eslint-config-google": "^0.11.0",
     "mocha": "^5.2.0",
     "nyc": "^14.1.0"
