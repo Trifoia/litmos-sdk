@@ -3,6 +3,40 @@ This document is meant to be a comprehensive list of available Litmos API endpoi
 
 The documentation can be found [here](https://support.litmos.com/hc/en-us/articles/227734667-Overview-Developer-API)
 
+## Required Endpoints
+These are the endpoints that we need to implement for full functionality of our current systems
+```
+/users                - get; post
+  /details              - get
+  /{userId OR username} - get; put
+    /teams                - get
+    /learningpaths        - get; post
+    /courses              - get; post
+      /{courseId}           - get
+
+/courses        - get
+  /{courseId}     - get
+    /users          - get
+    /modules        - get
+
+/results    - NA
+  /modules    - NA
+    /{moduleId} - post
+
+/teams          - get; post
+  /{teamId}       - get; put
+    /courses        - get; post
+    /teams          - get; post
+    /learningpaths  - get; post
+    /users          - get; post
+
+/learningpaths  - get
+  /{lpId}         - get
+    /courses        - get
+    /users          - get
+```
+
+## Comprehensive List
 ```
 /users                - get; post
   /details              - get
@@ -44,8 +78,10 @@ The documentation can be found [here](https://support.litmos.com/hc/en-us/articl
                 /attended       - NA
                   /{attended}     - post
 
-/results  - get
-  /details  - get
+/results    - NA
+  /details    - get
+  /modules    - NA
+    /{moduleId} - post
 
 /teams                - get; post
   /{teamId}             - get; put; delete
