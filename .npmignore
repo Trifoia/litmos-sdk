@@ -3,3 +3,8 @@ test
 .eslintrc.js
 buildspec.yml
 Makefile
+nodejs
+coverage
+build
+.nyc_output
+testing-data
