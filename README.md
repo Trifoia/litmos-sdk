@@ -16,7 +16,7 @@ const Litmos = require('./litmos.js');
 const env = require('./.env.json');
 
 const litmosOpts = {
-  apiKey: env.LITMOS_TRIFOIA_API_KEY,
+  apiKey: env.LITMOS_API_KEY,
   source: env.LITMOS_SOURCE
 };
 const litmos = new Litmos(litmosOpts);
@@ -39,9 +39,9 @@ litmos.api.users.id({user-id}).learningpaths.post({Learning path data})
 
 All method chains **must** end with a request method. Valid methods are:
 ``` js
-get()                     // Performs a GET request on the preceding endpoint
-post(post-data {object})  // Performs a POST request on the preceding endpoint. Takes a body to post
-put(put-data {object})    // (NOT YET IMPLEMENTED) Performs a PUT request on the preceding endpoint. Takes a body to put
+get()     // Performs a GET request on the preceding endpoint
+post()    // Performs a POST request on the preceding endpoint. Takes a body to post
+put()     // Performs a PUT request on the preceding endpoint. Takes a body to put
 ```
 
 URL query parameters can also be supplied to all request methods. These parameters should be defined as key-value pairs in a supplied object, as such:
@@ -51,6 +51,7 @@ const params = {
 }
 litmos.api.results.modules.get(params);
 ```
+
 ## Async
 All request methods are asynchronous - they will return a Promise that is resolved with processed response data from Litmos, or reject with an error. The `await` keyword should be used when processing data:
 ``` js
@@ -137,8 +138,7 @@ The following principles should be followed when developing this sdk:
 - All traffic **must** be transmitted over https
 - Should use the XML endpoints, and support automatic conversion of js objects to xml
   - The Litmos API only consistently works with XML, JSON support is spotty at best
-- Should be fully documented with JSDocs
-- Should be fully unit tested
+- Should be fully documented with JSDocs to support intellisense
 
 # Notes on Litmos API Oddities
 The Litmos API is not the most consistent API in the world. Documentation is spotty and implementation is inconsistent. Here are some pointers that should help when navigating the API
