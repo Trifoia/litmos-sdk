@@ -47,7 +47,7 @@ put()     // Performs a PUT request on the preceding endpoint. Takes a body to p
 URL query parameters can also be supplied to all request methods. These parameters should be defined as key-value pairs in a supplied object, as such:
 ``` js
 const params = {
-  since: '2019-05-14
+  since: '2019-05-14'
 }
 litmos.api.results.modules.get(params);
 ```
