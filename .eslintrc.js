@@ -17,6 +17,7 @@ module.exports = {
       'code': 120,
       'ignoreStrings': true,
       'ignoreTemplateLiterals': true
-    }]
+    }],
+    'guard-for-in': 0
   }
 };

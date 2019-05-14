@@ -7,11 +7,8 @@ https://support.litmos.com/hc/en-us/articles/227734667-Overview-Developer-API
 Additional articles can be found here:
 https://support.litmos.com/hc/en-us/sections/206185047-Developer-API
 
-# PRE-RELEASE DEVELOPMENT
-WARNING: Expect major changes in minor version updates (0.x.0) until version 1.0.0 is reached. This SDK is currently **unstable**
-
 # Usage
-This SDK is meant to reflect the actual REST API as closely as possible so that the Litmos API docs themselves can provide guidence on how to use this SDK
+This SDK is meant to reflect the actual REST API as closely as possible so that the Litmos API docs themselves can provide guidance on how to use this SDK
 
 First, import and create an instance of the Litmos class with required and optional settings. See [litmos-opts.js](./lib/litmos-opts.js) for a full list of possible options
 ``` js
@@ -29,44 +26,49 @@ Once instantiated, method / object chaining is used to access the desired endpoi
 ``` js
 GET users/
 // Becomes...
-litmos.users.get()
+litmos.api.users.get()
 
 GET users/{user-id}
 // Becomes...
-litmos.users.id({user-id}).get()
+litmos.api.users.id({user-id}).get()
 
 POST users/{user-id}/learningpaths
 // Becomes...
-litmos.users.id({user-id}).learningpaths.post({Learning path data})
+litmos.api.users.id({user-id}).learningpaths.post({Learning path data})
 ```
 
 All method chains **must** end with a request method. Valid methods are:
 ``` js
 get()                     // Performs a GET request on the preceding endpoint
-search(term {string})     // Performs a search operation on the preceding endpoint using the given term
 post(post-data {object})  // Performs a POST request on the preceding endpoint. Takes a body to post
 put(put-data {object})    // (NOT YET IMPLEMENTED) Performs a PUT request on the preceding endpoint. Takes a body to put
-details()                 // (NOT YET IMPLEMENTED) Gets details on the preceding endpoint
-del()                     // (NOT YET IMPLEMENTED) Performs a DELETE request on the preceding endpoint
+```
+
+URL query parameters can also be supplied to all request methods. These parameters should be defined as key-value pairs in a supplied object, as such:
+``` js
+const params = {
+  since: '2019-05-14
+}
+litmos.api.results.modules.get(params);
 ```
 ## Async
 All request methods are asynchronous - they will return a Promise that is resolved with processed response data from Litmos, or reject with an error. The `await` keyword should be used when processing data:
 ``` js
 // All of these requests will happen one after the other
 // Wait for the GET request to succeed before saving the response and continuing
-const allUsers = await litmos.users.get();
+const allUsers = await litmos.api.users.get();
 
 // Wait for the GET request
-const allLearningPaths = await litmos.learningpaths.get();
+const allLearningPaths = await litmos.api.learningpaths.get();
 
 // Wait for the POST request
-const postRes = await litmos.users.id('user-id').learningpaths.post({Id: 'lp-id'});
+const postRes = await litmos.api.users.id('user-id').learningpaths.post({Id: 'lp-id'});
 ```
 ## Pagination
-Litmos will only provide a maximum of 1000 elements from any request, to get more elements pagination must be used. Fortunately the system will automatically determine if pagination is required, and keep paging through responses until all elements are received. This functionality cannot currently be disabled (TODO: Allow disabling of pagination)
+Litmos will only provide a maximum of 1000 elements from any request, to get more elements pagination must be used. The system will automatically determine if pagination is required, and keep paging through responses until all elements are received. This functionality cannot currently be disabled (TODO: Allow disabling of pagination)
 ``` js
 // There are 4231 users
-const allUsers = await litmos.users.get();
+const allUsers = await litmos.api.users.get();
 
 console.log(allUsers.length); // Outputs "4231"
 ```
@@ -110,7 +112,7 @@ const newLps = [
   { Id: 'LearningPathId1' },
   { Id: 'LearningPathId2' }
 ];
-await litmos.users.id('user-id').learningpaths.push(newLps);
+await litmos.api.users.id('user-id').learningpaths.push(newLps);
 ```
 ## Helpers
 Some operations are especially complicated - in these cases helpers are available that simplify things
@@ -125,7 +127,7 @@ const userOpts = {
   DisableMessages: true
 };
 const newUser = litmos.helpers.generateUserObject(userOpts);
-const response = await litmos.users.post(newUser);
+const response = await litmos.api.users.post(newUser);
 ```
 # Development Principles
 The following principles should be followed when developing this sdk:

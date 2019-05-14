@@ -14,7 +14,7 @@ const assets = require('./assets/xml-test-assets.json');
 
 describe('xml.js:', function() {
   it('should instantiate without errors', function() {
-    XML = require('../lib/xml.js');
+    XML = require('../lib/utils/xml.js');
   });
 
   it('should be able to process xml string for a list of users', function() {

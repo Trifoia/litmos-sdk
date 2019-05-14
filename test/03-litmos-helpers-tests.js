@@ -2,8 +2,8 @@
 
 const assert = require('assert');
 
-const helpers = require('../lib/litmos-helpers.js');
-const xml = require('../lib/xml.js');
+const helpers = require('../lib/helpers/litmos-helpers.js');
+const xml = require('../lib/utils/xml.js');
 
 /**
  * Tests for the `litmos-helpers` module

@@ -5,8 +5,8 @@ const assert = require('assert');
 const assetsRaw = require('./assets/users-get-asset-raw.json');
 const assetsProcessed = require('./assets/users-get-asset-processed.json');
 // const env = require('../.env.json');
-const Request = require('../lib/request.js');
-const LitmosOpts = require('../lib/litmos-opts.js');
+const Request = require('../lib/request/request.js');
+const LitmosOpts = require('../lib/helpers/litmos-opts.js');
 
 /**
  * Request instance used for testing - instantiated as part of a test
