@@ -225,7 +225,7 @@
     "FirstName": "Teressa",
     "LastName": "Trusty",
     "Active": "true",
-    "Email": {},
+    "Email": null,
     "AccessLevel": "Learner",
     "Brand": "Default"
   },

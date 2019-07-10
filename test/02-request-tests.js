@@ -23,7 +23,7 @@ let originalReq;
  */
 const proxyHandler = {
   apply: async function(target, thisArg, args) {
-    args[1].call(null, null, assetsRaw.res);
+    return assetsRaw.res;
   }
 };
 
