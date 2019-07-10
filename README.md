@@ -7,12 +7,15 @@ https://support.litmos.com/hc/en-us/articles/227734667-Overview-Developer-API
 Additional articles can be found here:
 https://support.litmos.com/hc/en-us/sections/206185047-Developer-API
 
+# Disclaimer
+This package is **not** maintained by or associated with "SAP Litmos" and is provided as-is
+
 # Usage
 This SDK is meant to reflect the actual REST API as closely as possible so that the Litmos API docs themselves can provide guidance on how to use this SDK
 
-First, import and create an instance of the Litmos class with required and optional settings. See [litmos-opts.js](./lib/litmos-opts.js) for a full list of possible options
+First, import and create an instance of the Litmos class with required and optional settings. See [litmos-opts.js](./lib/helpers/litmos-opts.js) for a full list of possible options
 ``` js
-const Litmos = require('./litmos.js');
+const Litmos = require('@trifoia/litmos-sdk');
 const env = require('./.env.json');
 
 const litmosOpts = {
@@ -81,10 +84,10 @@ According to the Litmos documentation, the following xml would be used to assign
 ``` xml
 <LearningPaths>
   <LearningPath>
-    <Id>[LearningPathId]</Id>
+    <Id>[LearningPathId1]</Id>
   </LearningPath>
   <LearningPath>
-    ...
+    <Id>[LearningPathId2]</Id>
   </LearningPath>
 </LearningPaths>
 ```
@@ -95,12 +98,12 @@ This XML is equivalent to this JSON:
   "LearningPaths": [
     {
       "LearningPath": {
-        "Id": "LearningPathId"
+        "Id": "LearningPathId1"
       }
     },
     {
       "LearningPath": {
-        ...
+        "Id": "LearningPathId2"
       }
     }
   ]
