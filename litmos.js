@@ -68,6 +68,42 @@ class Litmos {
   }
 
   /**
+   * Helper function takes an array representing a final endpoint and attempts to return the full api object
+   * that can be used to access that endpoint. Any unknown values in the array will be assumed to be ids
+   *
+   * Will throw an error if the endpoint is invalid
+   *
+   * @param {string[]} endpointArr Array of endpoint values
+   *
+   * @return {object} The final endpoint object that can be used to access the Litmos API
+   */
+  setEndpoint(endpointArr) {
+    let finalObject = this.api;
+
+    for (let i=0; i<endpointArr.length; i++) {
+      const item = endpointArr[i];
+
+      if (finalObject[item]) {
+        // This is a valid endpoint that we recognize
+        finalObject = finalObject[item];
+        continue;
+      }
+
+      // This isn't a known endpoint value. Could it be an id?
+      if (finalObject.id) {
+        // It could be an ID!
+        finalObject = finalObject.id(item);
+        continue;
+      }
+
+      // It's not an ID. This is an invalid endpoint
+      throw new Error(`Invalid Endpoint used in setEndpoint: ${endpointArr.join('/')}`);
+    }
+
+    return finalObject;
+  }
+
+  /**
    * Helpers that assist in working with the Litmos API
    */
   get helpers() {
