@@ -43,14 +43,17 @@ litmos.api.users.id({user-id}).learningpaths.post({Learning path data})
 All method chains **must** end with a request method. Valid methods are:
 ``` js
 get()     // Performs a GET request on the preceding endpoint
+delete()  // Performs a DELETE request on the preceding endpoint
 post()    // Performs a POST request on the preceding endpoint. Takes a body to post
 put()     // Performs a PUT request on the preceding endpoint. Takes a body to put
+
 ```
 
 URL query parameters can also be supplied to all request methods. These parameters should be defined as key-value pairs in a supplied object, as such:
 ``` js
 const params = {
-  since: '2019-05-14'
+  since: '2019-05-14',
+  limit: 20
 }
 litmos.api.results.modules.get(params);
 ```
@@ -69,12 +72,14 @@ const allLearningPaths = await litmos.api.learningpaths.get();
 const postRes = await litmos.api.users.id('user-id').learningpaths.post({Id: 'lp-id'});
 ```
 ## Pagination
-Litmos will only provide a maximum of 1000 elements from any request, to get more elements pagination must be used. The system will automatically determine if pagination is required, and keep paging through responses until all elements are received. This functionality cannot currently be disabled (TODO: Allow disabling of pagination)
+Litmos will only provide a maximum of 1000 elements from any request, to get more elements pagination must be used. The system will automatically determine if pagination is required, and keep paging through responses until all elements are received. This functionality can be disabled by provided a "limit" parameter to the request
 ``` js
 // There are 4231 users
 const allUsers = await litmos.api.users.get();
-
 console.log(allUsers.length); // Outputs "4231"
+
+const tenUsers = await litmos.api.users.get({limit: 10});
+console.log(tenUsers.length); // Outputs "10"
 ```
 
 ## POST / PUT Requests
