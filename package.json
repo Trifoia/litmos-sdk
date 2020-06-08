@@ -1,6 +1,6 @@
 {
   "name": "@trifoia/litmos-sdk",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Node.js SDK for the Litmos Learning Management System",
   "main": "litmos.js",
   "scripts": {
