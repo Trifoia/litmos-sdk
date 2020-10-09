@@ -15,7 +15,7 @@ This SDK is meant to reflect the actual REST API as closely as possible so that 
 
 First, import and create an instance of the Litmos class with required and optional settings. See [litmos-opts.js](./lib/helpers/litmos-opts.js) for a full list of possible options
 ``` js
-const Litmos = require('@trifoia/litmos-sdk');
+const Litmos = require('litmos-sdk');
 const env = require('./.env.json');
 
 const litmosOpts = {
@@ -127,7 +127,7 @@ await litmos.api.users.id('user-id').learningpaths.push(newLps);
 Some operations are especially complicated - in these cases helpers are available that simplify things
 
 ### Creating New Users
-The requirements for creating new users (`litmos.users.post(data)`) are very precise, and a single misconfigured element can result in a server error. For this reason the `litmos.helpers.generateUserObject()` method exists to assist with generation of correctly formatted user data. Ex:
+The requirements for creating new users (`litmos.users.post(data)`) are very precise, and a single misconfigured element can result in a server error. For this reason the `litmos.helpers.generateUser()` method exists to assist with generation of correctly formatted user data. Ex:
 ``` js
 const userOpts = {
   UserName: 'test0@email.com',
