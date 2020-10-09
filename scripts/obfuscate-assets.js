@@ -13,7 +13,7 @@ const path = require('path');
 /**
  * Regex for emails taken directly from https://emailregex.com/
  */
-// eslint-disable-next-line max-len
+// eslint-disable-next-line max-len, no-useless-escape
 const emailRegex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/g;
 
 const processEmails = () => {
@@ -39,7 +39,7 @@ const processEmails = () => {
 
     // Replace all instances of the original email with the new email
     let newString = assetString;
-    while (true) {
+    while (true) { /* eslint-disable-line no-constant-condition */
       newString = newString.replace(originalEmail, newEmail);
 
       if (newString !== assetString) {
@@ -80,7 +80,7 @@ Object.keys(envars).forEach((varName) => {
 
   // Replace all instances of the original email with the new email
   let newString = assetString;
-  while (true) {
+  while (true) { /* eslint-disable-line no-constant-condition */
     newString = newString.replace(varValue, 'SECRET');
 
     if (newString !== assetString) {

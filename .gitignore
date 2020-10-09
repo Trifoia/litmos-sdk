@@ -71,3 +71,6 @@ testing-data/
 # Build Directories for Lambda Layers
 nodejs/
 build/
+
+# Secret config
+.conf.js

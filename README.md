@@ -159,3 +159,6 @@ The Litmos API documentation claims that both XML and JSON is supported for data
 
 ## Object Key Order
 When sending requests via XML, the order of object in the XML document _does_ matter in some cases. This should be kept in mind if encountering bugs despite the presence of all required fields
+
+## More results than expected
+According to the API documentation, the maximum number of results that can be returned in a single request is 1000. However, sometimes the API will actually return slightly more than 1000 results, which can lead to problems if unexpected
