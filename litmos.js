@@ -1,5 +1,7 @@
 'use strict';
 
+const config = require('./config.js');
+
 const LitmosOpts = require('./lib/helpers/litmos-opts.js');
 const Request = require('./lib/request/request.js');
 
@@ -9,32 +11,32 @@ const results = require('./lib/endpoints/results.js');
 const teams = require('./lib/endpoints/teams.js');
 const learningpaths = require('./lib/endpoints/learningpaths.js');
 
-const helpers = require('./lib/helpers/litmos-helpers.js');
+const generateModuleResult = require('./lib/generators/generate-module-result.js');
+const generateUser = require('./lib/generators/generate-user.js');
 
 /**
  * The Litmos class is the main entry-point or Litmos SDK operations
  */
 class Litmos {
   /**
-   * Constructor takes Litmos Options for initialization. See the LitmosOpts class for details. A raw object can also
-   * be provided to be instantiated as a LitmosOpts instance, and an error will be thrown if the provided
-   * options are invalid
+   * Constructor takes Litmos Options for initialization. See the LitmosOpts class for
+   * details. A raw object can also be provided to be instantiated as a LitmosOpts instance,
+   * and an error will be thrown if the provided options are invalid
    *
    * @param {LitmosOpts} opts Options to initialize the litmos SDK with
    */
   constructor(opts) {
     // Check to see if these options have already been constructed
-    if (opts instanceof LitmosOpts) {
-      this.opts = opts;
-    } else {
-      this.opts = new LitmosOpts(opts);
-    }
+    if (!(opts instanceof LitmosOpts)) opts = new LitmosOpts(opts);
+
+    // Initialize configuration
+    config.loadConfig({litmosOpts: opts});
 
     /**
      * @private
      * Internal object used to make requests to the Litmos API
      */
-    this._request = new Request(this.opts);
+    this._request = new Request();
 
     /**
      * Starting point for api access
@@ -68,8 +70,9 @@ class Litmos {
   }
 
   /**
-   * Helper function takes an array representing a final endpoint and attempts to return the full api object
-   * that can be used to access that endpoint. Any unknown values in the array will be assumed to be ids
+   * Helper function takes an array representing a final endpoint and attempts to return the
+   * full api object that can be used to access that endpoint. Any unknown values in the array
+   * will be assumed to be ids
    *
    * Will throw an error if the endpoint is invalid
    *
@@ -107,15 +110,27 @@ class Litmos {
    * Helpers that assist in working with the Litmos API
    */
   get helpers() {
-    return helpers;
+    return {
+      generateModuleResult,
+      generateUser,
+      generateModuleResultObject: generateModuleResult, // Backwards compatibility
+      generateUserObject: generateUser // Backwards compatibility
+    };
   }
 
   /**
-   * The total number of API calls made to the Litmos API. Note that sometimes a single request can use
+   * The total number of API calls made to the Litmos API. Note that a single request can use
    * multiple API calls if pagination was required
    */
   get requestCount() {
     return this._request.requestCount;
+  }
+
+  /**
+   * The Litmos Options being used for this instance
+   */
+  get opts() {
+    return config.litmosOpts;
   }
 }
 

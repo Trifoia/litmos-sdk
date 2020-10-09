@@ -11,3 +11,5 @@ testing-data
 .env.json
 testing.js
 .vscode
+.conf.js
+scripts/

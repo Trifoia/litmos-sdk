@@ -1,11 +1,15 @@
 {
-  "name": "@trifoia/litmos-sdk",
-  "version": "1.7.1",
+  "name": "litmos-sdk",
+  "version": "2.0.0",
   "description": "Node.js SDK for the Litmos Learning Management System",
   "main": "litmos.js",
   "scripts": {
-    "test": "mocha --exit",
-    "coverage": "nyc --reporter=text --reporter=html npm test"
+    "test": "mocha --recursive --test",
+    "test-quick": "mocha --recursive --quick --test",
+    "test-debug": "node --inspect node_modules/.bin/mocha --recursive --test",
+    "test-debug-quick": "node --inspect node_modules/.bin/mocha --recursive --quick --test",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -26,14 +30,12 @@
   },
   "homepage": "https://github.com/Trifoia/litmos-sdk#readme",
   "dependencies": {
-    "lodash": "^4.17.15",
-    "phin": "^3.4.1",
+    "lodash": "^4.17.20",
+    "phin": "^3.5.0",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-google": "^0.11.0",
-    "mocha": "^5.2.0",
-    "nyc": "^14.1.1"
+    "eslint": "^7.11.0",
+    "mocha": "^8.1.3"
   }
 }
