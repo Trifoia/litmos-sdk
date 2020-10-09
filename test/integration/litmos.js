@@ -31,6 +31,10 @@ describe('litmos integration', function() {
     assert.strictEqual(typeof litmos.helpers.generateUserObject, 'function');
     assert.strictEqual(typeof litmos.helpers.generateModuleResultObject, 'function');
     assert.strictEqual(litmos.requestCount, 0);
+    assert.ok(litmos.opts.apiKey);
+    assert.ok(litmos.opts.source);
+    assert.ok(litmos.opts.rateLimit);
+    assert.ok(litmos.opts.verbose);
   });
 
   itSlowly('should complete module', async () => {

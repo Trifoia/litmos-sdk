@@ -125,6 +125,13 @@ class Litmos {
   get requestCount() {
     return this._request.requestCount;
   }
+
+  /**
+   * The Litmos Options being used for this instance
+   */
+  get opts() {
+    return config.litmosOpts;
+  }
 }
 
 module.exports = Litmos;
