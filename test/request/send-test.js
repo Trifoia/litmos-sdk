@@ -25,7 +25,7 @@ describe('send', function() {
       };
     };
 
-    const result = await send(opts, lib);
+    const result = await send(opts, litmosOpts, lib);
     assert.strictEqual(result.statusCode, 200);
     assert.strictEqual(result.body, 'valid');
   });
@@ -53,7 +53,7 @@ describe('send', function() {
       };
     };
 
-    const result = await send(opts, lib);
+    const result = await send(opts, litmosOpts, lib);
     assert.strictEqual(requestCount, litmosOpts.retryCount + 1);
     assert.strictEqual(result.statusCode, 400);
     assert.strictEqual(result.body, 'invalid');
@@ -82,7 +82,7 @@ describe('send', function() {
       throw new Error('Timeout reached');
     };
 
-    const result = await send(opts, lib);
+    const result = await send(opts, litmosOpts, lib);
     assert.strictEqual(requestCount, litmosOpts.retryCount + 1);
     assert.strictEqual(result.statusCode, 408);
     assert.strictEqual(result.body.status, 'timeout');

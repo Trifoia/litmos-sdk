@@ -10,7 +10,10 @@ describe('process-opts', function() {
   it('should process opts for a GET request', async () => {
     const context = {
       _endpoint: ['endpoint1', 'endpoint2', 'endpoint3'],
-      _resPath: ['resPath1', 'resPath2']
+      _resPath: ['resPath1', 'resPath2'],
+      _request: {
+        opts: config.litmosOpts
+      }
     };
 
     const actual = processOpts(context, 'GET');
@@ -24,7 +27,10 @@ describe('process-opts', function() {
   it('should process opts for a DELETE request', async () => {
     const context = {
       _endpoint: ['endpoint1', 'endpoint2', 'endpoint3'],
-      _resPath: ['resPath1', 'resPath2']
+      _resPath: ['resPath1', 'resPath2'],
+      _request: {
+        opts: config.litmosOpts
+      }
     };
 
     const actual = processOpts(context, 'DELETE');
@@ -44,7 +50,10 @@ describe('process-opts', function() {
     const context = {
       _endpoint: ['endpoint1', 'endpoint2', 'endpoint3'],
       _resPath: ['resPath1', 'resPath2'],
-      _reqPath: ['reqPath1']
+      _reqPath: ['reqPath1'],
+      _request: {
+        opts: config.litmosOpts
+      }
     };
 
     const actual = processOpts(context, 'POST', { TestBody: 'test' });
@@ -60,7 +69,10 @@ describe('process-opts', function() {
     const context = {
       _endpoint: ['endpoint1', 'endpoint2', 'endpoint3'],
       _resPath: ['resPath1', 'resPath2'],
-      _reqPath: ['reqPath1']
+      _reqPath: ['reqPath1'],
+      _request: {
+        opts: config.litmosOpts
+      }
     };
 
     const actual = processOpts(context, 'PUT', { TestBody: 'test' });

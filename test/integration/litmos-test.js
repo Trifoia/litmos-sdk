@@ -37,6 +37,25 @@ describe('litmos integration', function() {
     assert.ok(litmos.opts.verbose);
   });
 
+  it('should be able to generate two sdk instances with different opts', async () => {
+    const opts1 = {
+      apiKey: 'testKey1',
+      source: 'testSource1'
+    };
+    const opts2 = {
+      apiKey: 'testKey2',
+      source: 'testSource2'
+    };
+
+    const sdk1 = new LitmosSDK(opts1);
+    const sdk2 = new LitmosSDK(opts2);
+
+    assert.strictEqual(sdk1.opts.apiKey, opts1.apiKey);
+    assert.strictEqual(sdk1.opts.source, opts1.source);
+    assert.strictEqual(sdk2.opts.apiKey, opts2.apiKey);
+    assert.strictEqual(sdk2.opts.source, opts2.source);
+  });
+
   itSlowly('should complete module', async () => {
     const opts = {
       UserId: 'w8_XWWRCq7S5xPc4LdjqMw2',
@@ -52,10 +71,11 @@ describe('litmos integration', function() {
     lastRequestCount = litmos.requestCount;
   });
 
+  let courses;
   itSlowly('should get all courses', async () => {
-    const actual = await litmos.api.courses.get();
-    courseId = actual[0].Id;
-    actual.forEach((course) => {
+    courses = await litmos.api.courses.get();
+    courseId = courses[0].Id;
+    courses.forEach((course) => {
       const keys = Object.keys(course);
       assert.ok(keys.includes('Id'));
       assert.ok(keys.includes('Code'));
@@ -75,6 +95,39 @@ describe('litmos integration', function() {
 
     assert.ok(litmos.requestCount > lastRequestCount);
     lastRequestCount = litmos.requestCount;
+  });
+
+  itSlowly('should be able to get courses from a second account', async () => {
+    const sdk2 = new LitmosSDK({
+      apiKey: config.debug.apiKey2,
+      source: config.litmosOpts.source
+    });
+    const actual = await sdk2.api.courses.get();
+    actual.forEach((course) => {
+      const keys = Object.keys(course);
+      assert.ok(keys.includes('Id'));
+      assert.ok(keys.includes('Code'));
+      assert.ok(keys.includes('Name'));
+      assert.ok(keys.includes('Active'));
+      assert.ok(keys.includes('ForSale'));
+      assert.ok(keys.includes('OriginalId'));
+      assert.ok(keys.includes('Description'));
+      assert.ok(keys.includes('EcommerceShortDescription'));
+      assert.ok(keys.includes('EcommerceLongDescription'));
+      assert.ok(keys.includes('CourseCodeForBulkImport'));
+      assert.ok(keys.includes('Price'));
+      assert.ok(keys.includes('AccessTillDate'));
+      assert.ok(keys.includes('AccessTillDays'));
+      assert.ok(keys.includes('CourseTeamLibrary'));
+
+      // A course with this ID should not exist in the first courses array
+      const found = courses.find(firstCourse => firstCourse.Id === course.Id);
+      assert.strictEqual(typeof found, 'undefined');
+    });
+  });
+
+  itSlowly('should not increment request count of first sdk when second sdk is used', async () => {
+    assert.strictEqual(litmos.requestCount, lastRequestCount);
   });
 
   itSlowly('should get specific course', async () => {

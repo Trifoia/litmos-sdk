@@ -13,7 +13,7 @@ const timeBetweenRequests = 60000 / litmosOpts.rateLimit;
 describe('rate-limit', function() {
   itSlowly('should wait one rate limit period', async () => {
     const startTime = Date.now();
-    await rateLimit(startTime);
+    await rateLimit(startTime, litmosOpts);
 
     const endTime = Date.now();
     assert.ok(Math.abs(endTime - (startTime + timeBetweenRequests)) < 10);
@@ -21,7 +21,7 @@ describe('rate-limit', function() {
 
   itSlowly('should wait half of one rate limit period', async () => {
     const startTime = Date.now();
-    await rateLimit(startTime - timeBetweenRequests / 2);
+    await rateLimit(startTime - timeBetweenRequests / 2, litmosOpts);
 
     const endTime = Date.now();
     assert.ok(Math.abs(endTime - (startTime + timeBetweenRequests / 2)) < 10);
@@ -29,7 +29,7 @@ describe('rate-limit', function() {
 
   it('should wait no seconds', async () => {
     const startTime = Date.now();
-    await rateLimit(startTime - timeBetweenRequests);
+    await rateLimit(startTime - timeBetweenRequests, litmosOpts);
 
     const endTime = Date.now();
     assert.ok(Math.abs(endTime - startTime) < 50);

@@ -1,7 +1,5 @@
 'use strict';
 
-const config = require('./config.js');
-
 const LitmosOpts = require('./lib/helpers/litmos-opts.js');
 const Request = require('./lib/request/request.js');
 
@@ -29,14 +27,16 @@ class Litmos {
     // Check to see if these options have already been constructed
     if (!(opts instanceof LitmosOpts)) opts = new LitmosOpts(opts);
 
-    // Initialize configuration
-    config.loadConfig({litmosOpts: opts});
+    /**
+     * Configuration options for this SDK instance
+     */
+    this.opts = opts;
 
     /**
      * @private
      * Internal object used to make requests to the Litmos API
      */
-    this._request = new Request();
+    this._request = new Request(this.opts);
 
     /**
      * Starting point for api access
@@ -124,13 +124,6 @@ class Litmos {
    */
   get requestCount() {
     return this._request.requestCount;
-  }
-
-  /**
-   * The Litmos Options being used for this instance
-   */
-  get opts() {
-    return config.litmosOpts;
   }
 }
 

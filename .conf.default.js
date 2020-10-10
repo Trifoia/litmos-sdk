@@ -65,5 +65,15 @@ module.exports = {
      * Base URL used for API requests
      */
     baseUrl: 'https://api.litmos.com/v1.svc/'
+  },
+
+  /**
+   * Configurations used in debugging
+   */
+  debug: {
+    /**
+     * Second API key that can be used to verify multi-api support
+     */
+    apiKey2: undefined
   }
 };
